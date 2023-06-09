@@ -14,4 +14,5 @@ import docTypes from './frontend/form-helper';
 export * from './frontend/notification-helper';
 export * from './network/session-core';
 export * from './network/session-helper';
+export * from './network/registration-helper';
 export { makeHandleFormSubmission, docTypes };

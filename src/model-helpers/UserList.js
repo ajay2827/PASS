@@ -163,7 +163,26 @@ export const loadUserList = async (session, podUrl) => {
       fetch: session.fetch
     });
     userList = [];
-    await setDocAclForUser(session, userListUrl, 'create', session.info.webId);
+    const accessObject = {
+      read: true,
+      append: true,
+      write: true,
+      control: true
+    };
+    const publicAccessObject = {
+      read: false,
+      append: true,
+      write: false,
+      control: false
+    };
+    await setDocAclForUser(
+      session,
+      userListUrl,
+      'create',
+      session.info.webId,
+      accessObject,
+      publicAccessObject
+    );
   }
   const listUrl = `${podUrl}Users/userlist.ttl`;
   return { dataset, userList, listUrl };

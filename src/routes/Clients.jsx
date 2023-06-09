@@ -1,19 +1,16 @@
 // React Imports
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 // React Router Imports
 import { useLocation } from 'react-router-dom';
 // Material UI Imports
-import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 // Component Imports
-import AddClientModal from '../components/Clients/AddClientModal';
 import ClientList from '../components/Clients/ClientList';
-import { UserListContext } from '../contexts';
+import { SignedInUserContext, UserListContext } from '../contexts';
 
 /**
  * Clients Component - Component that generates Clients section for PASS
@@ -24,9 +21,9 @@ import { UserListContext } from '../contexts';
 
 const Clients = () => {
   // state for AddClientModal component
-  const [showModal, setShowModal] = useState(false);
 
   const { loadingUsers } = useContext(UserListContext);
+  const { podUrl } = useContext(SignedInUserContext);
 
   const location = useLocation();
   localStorage.setItem('restorePath', location.pathname);
@@ -54,20 +51,11 @@ const Clients = () => {
     </Container>
   ) : (
     <Container>
-      <Button
-        variant="contained"
-        color="secondary"
-        size="small"
-        aria-label="Add Client Button"
-        startIcon={<AddIcon />}
-        onClick={() => setShowModal(true)}
-        sx={{ marginTop: '3rem' }}
-      >
-        Add Client
-      </Button>
+      <p>Your Client Registration Link:</p>
+        <a href={`${window.location.origin}/PASS/#/PASS/Signup?podUrl=${podUrl}`}>
+          {window.location.origin}/PASS/#/PASS/Signup?podUrl={podUrl}
+        </a>
       <ClientList />
-      {/* modal/popup renders when showConfirmationModal state is true */}
-      <AddClientModal showModal={showModal} setShowModal={setShowModal} />
     </Container>
   );
 };
